@@ -1,25 +1,32 @@
 package br.com.alura.projeto.course;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
-public class NewCourseForm {
+public class CourseDTO {
 
     @NotBlank
     private String name;
 
     @NotBlank
     @Length(min = 4, max = 10)
+    @Pattern(
+            regexp = "^[a-z]+(-[a-z]+)*$",
+            message = "Code must contain only lowercase letters and hyphens"
+    )
     private String code;
 
     private String description;
 
     @NotBlank
-    @Email
     private String instructorEmail;
 
-    public NewCourseForm() {}
+    @NotNull
+    private Long categoryId;
+
+    public CourseDTO() {}
 
     public String getName() {
         return name;
@@ -49,7 +56,12 @@ public class NewCourseForm {
         return instructorEmail;
     }
 
-    public void setInstructorEmail(String instructorEmail) {
-        this.instructorEmail = instructorEmail;
-    }
+    public void setInstructorEmail(String instructorEmail) { this.instructorEmail = instructorEmail; }
+
+    public Long getCategoryId() { return categoryId; }
+
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
 }
+
+
