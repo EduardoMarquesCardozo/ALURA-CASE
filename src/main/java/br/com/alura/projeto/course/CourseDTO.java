@@ -1,5 +1,7 @@
 package br.com.alura.projeto.course;
 
+import br.com.alura.projeto.category.Category;
+import br.com.alura.projeto.user.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -20,13 +22,26 @@ public class CourseDTO {
 
     private String description;
 
-    @NotBlank
     private String instructorEmail;
+    private String status;
+    private String categoryName;
 
     @NotNull
     private Long categoryId;
 
-    public CourseDTO() {}
+    public CourseDTO(Course course, Category category, User instructor) {
+        this.name = course.getName();
+        this.code = course.getCode();
+        this.description = course.getDescription();
+        this.categoryId = course.getCategoryId();
+        this.status = course.getStatus();
+        this.categoryName = (category != null ? category.getName() : null);
+        this.instructorEmail = (instructor != null ? instructor.getEmail() : null);
+    }
+
+    public CourseDTO() {
+
+    }
 
     public String getName() {
         return name;
@@ -61,6 +76,14 @@ public class CourseDTO {
     public Long getCategoryId() { return categoryId; }
 
     public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
+    public String getCategoryName() { return categoryName; }
+
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
 
 }
 

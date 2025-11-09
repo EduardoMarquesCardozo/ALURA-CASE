@@ -19,4 +19,10 @@ public class HomeController {
 
         return "home/oi";
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+
+        return "home/dashboard";
+    }
 }
