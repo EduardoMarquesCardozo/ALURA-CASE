@@ -20,6 +20,8 @@ public class Course {
 
     private String code;
 
+    private String status;
+
     private String description;
 
     private Long categoryId;
@@ -67,4 +69,8 @@ public class Course {
     public LocalDateTime getCreatedAt() { return createdAt; }
 
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
 }
