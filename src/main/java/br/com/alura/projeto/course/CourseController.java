@@ -11,11 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -55,45 +53,63 @@ public class CourseController {
         return "admin/course/list";
     }
 
-    @GetMapping("/admin/course/new")
-    public String create(Model model) {
-        model.addAttribute("newCourseForm", new CourseDTO());
+    @GetMapping({"/admin/course/new", "/admin/course/{code}/edit"})
+    public String openForm(@PathVariable(required = false) String code, Model model) {
+        CourseDTO dto;
+        boolean isEdit = (code != null);
+
+        if (isEdit) {
+            Course course = courseRepository.findByCode(code)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
+            var category = categoryRepository.findById(course.getCategoryId()).orElse(null);
+            var instructor = userRepository.findById(course.getInstructorId()).orElse(null);
+            dto = new CourseDTO(course, category, instructor);
+        } else {
+            dto = new CourseDTO();
+        }
+
+        model.addAttribute("courseForm", dto);
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("instructors", userRepository.findAll());
+        model.addAttribute("isEdit", isEdit);
         return "admin/course/newForm";
     }
 
-
-
     @PostMapping("/admin/course/new")
-    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody CourseDTO course) {
-        Course created = service.registerCourse(course);
+    public String save(@Valid @ModelAttribute("courseForm") CourseDTO course, BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/course/newForm";
+        }
 
-        Map<String, Object> response = Map.of("id", created.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        service.registerCourse(course);
+        return "redirect:/admin/courses";
     }
+
+    @PostMapping("/admin/course/{code}/edit")
+    public String update(@PathVariable String code,
+                         @Valid @ModelAttribute("courseForm") CourseDTO dto,
+                         BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/course/newForm";
+        }
+
+        service.updateCourse(code, dto);
+        return "redirect:/admin/courses";
+    }
+
     @GetMapping("/admin/course/{code}/status")
-    public String showDeactivatePage(@PathVariable("code") String courseCode, Model model) {
-        Course course = courseRepository.findByCode(courseCode)
+    public String showStatusPage(@PathVariable("code") String code, Model model) {
+        Course course = courseRepository.findByCode(code)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
         model.addAttribute("course", course);
         return "admin/course/deactivate";
     }
 
     @PostMapping("/admin/course/{code}/inactive")
-    public String toggleCourseStatus(@PathVariable("code") String courseCode) {
-        Course course = courseRepository.findByCode(courseCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
-
-        if (Objects.equals(course.getStatus(), "ACTIVE")) {
-            course.setStatus("INACTIVE");
-        } else {
-            course.setStatus("ACTIVE");
-        }
-
-        courseRepository.save(course);
-
+    public String toggleStatus(@PathVariable("code") String code) {
+        service.toggleStatus(code);
         return "redirect:/admin/courses";
     }
+
 
 }

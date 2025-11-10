@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register new Course</title>
+    <title><c:choose><c:when test="${isEdit}">Edit Course</c:when><c:otherwise>Register New Course</c:otherwise></c:choose></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="/assets/external-libs/bootstrap/css/bootstrap.min.css">
 </head>
@@ -15,11 +15,26 @@
 <div class="container">
     <section class="panel panel-primary vertical-space">
         <div class="panel-heading">
-            <h1>Register new Course</h1>
+            <h1>
+                <c:choose>
+                    <c:when test="${isEdit}">Edit Course</c:when>
+                    <c:otherwise>Register New Course</c:otherwise>
+                </c:choose>
+            </h1>
         </div>
+        <c:choose>
+            <c:when test="${isEdit}">
+                <c:url var="formAction" value="/admin/course/${courseForm.code}/edit"/>
+            </c:when>
+            <c:otherwise>
+                <c:url var="formAction" value="/admin/course/new"/>
+            </c:otherwise>
+        </c:choose>
 
-        <form:form modelAttribute="newCourseForm" cssClass="form-horizontal panel-body"
-                   action="/admin/course/new" method="post">
+        <form:form modelAttribute="courseForm"
+                   cssClass="form-horizontal panel-body"
+                   action="${formAction}"
+                   method="post">
 
             <div class="row form-group">
                 <div class="col-md-9">
@@ -30,7 +45,7 @@
 
                 <div class="col-md-9">
                     <label for="course-code">Code:</label>
-                    <form:input path="code" id="course-code" cssClass="form-control" required="required"/>
+                    <form:input path="code" id="course-code" cssClass="form-control" required="required" readonly="${isEdit}"/>
                     <form:errors path="code" cssClass="text-danger"/>
                 </div>
 
@@ -62,7 +77,12 @@
                 </div>
             </div>
 
-            <input class="btn btn-success submit" type="submit" value="Save"/>
+            <input class="btn btn-success submit" type="submit"
+                   value="<c:choose>
+                        <c:when test='${isEdit}'>Update</c:when>
+                        <c:otherwise>Save</c:otherwise>
+                   </c:choose>"/>
+            <a href="/admin/courses" class="btn btn-secondary ms-2">Cancel</a>
         </form:form>
     </section>
 </div>

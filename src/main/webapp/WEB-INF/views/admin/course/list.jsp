@@ -15,6 +15,7 @@
         <div class="panel-heading">
             <h1>Courses</h1>
             <a class="btn btn-info new-button" href="/admin/course/new">Register new</a>
+            <a class="btn btn-info new-button" href="/dashboard">Dashboard</a>
         </div>
         <table class="panel-body table table-hover">
             <thead>
@@ -23,6 +24,7 @@
                 <th>Code</th>
                 <th>Category</th>
                 <th>Instructor</th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
@@ -42,6 +44,9 @@
                                 <a class="btn btn-success" href="/admin/course/${course.code}/status">Activate</a>
                             </c:otherwise>
                         </c:choose>
+                    </td>
+                    <td>
+                        <a href="/admin/course/${course.code}/edit" class="btn btn-sm btn-primary">Edit</a>
                     </td>
                 </tr>
             </c:forEach>
