@@ -1,6 +1,7 @@
 package br.com.alura.projeto.course;
 
 import br.com.alura.projeto.category.Category;
+import br.com.alura.projeto.category.CategoryCoursesDTO;
 import br.com.alura.projeto.category.CategoryRepository;
 import br.com.alura.projeto.user.User;
 import br.com.alura.projeto.user.UserRepository;
@@ -9,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CourseService {
@@ -83,5 +84,17 @@ public class CourseService {
         }
 
         return repo.save(course);
+    }
+
+    public List<CategoryCoursesDTO> findAllCoursesGroupedByCategory() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryCoursesDTO> result = new ArrayList<>();
+
+        for (Category category : categories) {
+            List<Course> courses = repo.findByCategoryId(category.getId());
+            result.add(new CategoryCoursesDTO(category, courses));
+        }
+
+        return result;
     }
 }
