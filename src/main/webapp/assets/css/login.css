@@ -1,14 +1,4 @@
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #0d1a3a, #001428);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 2rem;
-}
+
 
 .container {
     display: grid;
@@ -16,6 +6,7 @@ body {
     gap: 3rem;
     max-width: 1200px;
     width: 100%;
+    align-items: baseline;
 }
 
 .login-box {
