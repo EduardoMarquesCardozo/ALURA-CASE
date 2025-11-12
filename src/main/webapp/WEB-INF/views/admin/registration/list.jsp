@@ -5,37 +5,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Registrations</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="/assets/external-libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
 </head>
-    <body class="p-4">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1>Registration</h1>
-                    <a class="btn btn-info new-button" href="/admin/registration/new">New registration</a>
-                    <a class="btn btn-info new-button" href="/dashboard">Dashboard</a>
-                </div>
-                <table class="panel-body table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Course</th>
-                        <th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="registration" items="${registrations}">
-                        <tr>
-                            <td>${registration.user.name}</td>
-                            <td>${registration.course.name}</td>
-                            <td>${registration.registrationDate}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+
+<body>
+<div class="container">
+    <div class="card list-card">
+        <div class="list-header">
+            <h1>Registrations</h1>
+            <div class="flex-basic">
+                <a class="btn btn-small btn-blue" href="/dashboard">Dashboard</a>
+                <a class="btn btn-small" href="/admin/registration/new">New Registration</a>
             </div>
         </div>
-    </body>
+
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="registration" items="${registrations}">
+                <tr>
+                    <td>${registration.user.name}</td>
+                    <td>${registration.course.name}</td>
+                    <td>${registration.formattedDate}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
 </html>

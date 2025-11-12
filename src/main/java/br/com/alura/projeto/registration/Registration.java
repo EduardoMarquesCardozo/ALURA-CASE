@@ -5,6 +5,7 @@ import br.com.alura.projeto.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "registration", uniqueConstraints = {
@@ -27,6 +28,9 @@ public class Registration {
     @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate = LocalDateTime.now();
 
+    @Transient
+    private String formattedDate;
+
     public Registration() {}
 
     public Registration(User user, Course course) {
@@ -41,4 +45,15 @@ public class Registration {
     public Course getCourse() { return course; }
 
     public LocalDateTime getRegistrationDate() { return registrationDate; }
+
+    public String getFormattedDate() {
+        if (registrationDate != null) {
+            return registrationDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        }
+        return null;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
 }
