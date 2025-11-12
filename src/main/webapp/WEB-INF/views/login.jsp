@@ -11,10 +11,30 @@
 </head>
     <body class="login-page">
         <div class="container">
-            <div class="login-box">
+            <div id="loginIntro" class="login-box" style="${not empty error ? 'display: none;' : ''}">
                 <h2>Already a student ?</h2>
                 <p>Login and great class!</p>
                 <button type="button" class="btn-login" id="showLogin">LOGIN</button>
+            </div>
+
+            <div id="loginForm" class="login-box card form-card" style="${not empty error ? '' : 'display: none;'}">
+                <h1>Login</h1>
+                <p class="subtitle">Enter your credentials to access your account.</p>
+
+
+                <form action="/login" method="post" class="form">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input class="input" type="email" id="email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input class="input" type="password" id="password" name="password" required />
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" value="Login" class="btn" id="submitBtn" disabled />
+                    </div>
+                </form>
             </div>
 
             <div class="courses">
@@ -40,21 +60,44 @@
     </body>
 </html>
 <script>
-    document.getElementById("showLogin").addEventListener("click", function() {
-        const container = document.querySelector(".login-box");
-        container.innerHTML = `
-            <h2>Login</h2>
-            <form action="/login" method="post" class="login-form">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required />
-                </div>
-                <button type="submit" class="btn-login">Login</button>
-            </form>
-        `;
+    const showBtn = document.getElementById("showLogin");
+    if (showBtn) {
+        showBtn.addEventListener("click", function() {
+            const intro = document.getElementById("loginIntro");
+            const formBox = document.getElementById("loginForm");
+            if (intro) intro.style.display = "none";
+            if (formBox) formBox.style.display = "block";
+            const emailInput = document.getElementById("email");
+            if (emailInput) emailInput.focus();
+            validateForm();
+        });
+    }
+
+    function validateForm() {
+        const form = document.querySelector('.form');
+        const submitBtn = document.getElementById('submitBtn');
+        const requiredFields = form ? form.querySelectorAll('[required]') : [];
+        let allFilled = true;
+        requiredFields.forEach(field => {
+            if (!field.value || field.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+        if (submitBtn) submitBtn.disabled = !allFilled;
+    }
+
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.closest && e.target.closest('.form')) {
+            validateForm();
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        const formBox = document.getElementById('loginForm');
+        if (formBox && getComputedStyle(formBox).display !== 'none') {
+            const emailInput = document.getElementById('email');
+            if (emailInput) emailInput.focus();
+            validateForm();
+        }
     });
 </script>
