@@ -79,8 +79,10 @@ public class CourseService {
 
         if ("ACTIVE".equals(course.getStatus())) {
             course.setStatus("INACTIVE");
+            course.setDeactivationDate(java.time.LocalDateTime.now());
         } else {
             course.setStatus("ACTIVE");
+            course.setDeactivationDate(null);
         }
 
         return repo.save(course);
