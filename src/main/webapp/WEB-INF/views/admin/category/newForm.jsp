@@ -63,11 +63,34 @@
             </div>
 
             <div class="buttons">
-                <input type="submit" value="Save" class="btn" />
+                <input type="submit" value="Save" class="btn" id="submitBtn" disabled />
                 <a href="/admin/categories" class="btn btn-small">Back</a>
             </div>
         </form:form>
     </div>
 </div>
+
+<script>
+    const form = document.querySelector('.form');
+    const submitBtn = document.getElementById('submitBtn');
+    const requiredFields = form.querySelectorAll('[required]');
+
+    function validateForm() {
+        let allFilled = true;
+        requiredFields.forEach(field => {
+            if (!field.value || field.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+        submitBtn.disabled = !allFilled;
+    }
+
+    requiredFields.forEach(field => {
+        field.addEventListener('input', validateForm);
+        field.addEventListener('change', validateForm);
+    });
+
+    validateForm();
+</script>
 </body>
 </html>

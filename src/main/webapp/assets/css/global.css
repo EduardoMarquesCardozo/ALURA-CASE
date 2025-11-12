@@ -147,7 +147,13 @@ body {
     transform: scale(1.03);
 }
 
-
+#submitBtn:disabled {
+  background-color: #c5c5c5 ;
+  color: #6d6d6d ;
+  cursor: not-allowed ;
+  opacity: 0.8;
+  box-shadow: none;
+}
 
 
 /*FORMS*/

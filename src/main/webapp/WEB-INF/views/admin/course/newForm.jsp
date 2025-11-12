@@ -76,8 +76,8 @@
 
             <div class="buttons">
                 <c:choose>
-                    <c:when test='${isEdit}'><input type="submit"class="btn"value="Update" /></c:when>
-                    <c:otherwise><input type="submit"class="btn"value="Save" /></c:otherwise>
+                    <c:when test='${isEdit}'><input type="submit" class="btn" value="Update" id="submitBtn" disabled /></c:when>
+                    <c:otherwise><input type="submit" class="btn" value="Save" id="submitBtn" disabled /></c:otherwise>
                 </c:choose>
                 <a href="/admin/courses" class="btn btn-small">Back</a>
             </div>
@@ -85,5 +85,28 @@
         </form:form>
     </div>
 </div>
+
+<script>
+    const form = document.querySelector('.form');
+    const submitBtn = document.getElementById('submitBtn');
+    const requiredFields = form.querySelectorAll('[required]');
+
+    function validateForm() {
+        let allFilled = true;
+        requiredFields.forEach(field => {
+            if (!field.value || field.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+        submitBtn.disabled = !allFilled;
+    }
+
+    requiredFields.forEach(field => {
+        field.addEventListener('input', validateForm);
+        field.addEventListener('change', validateForm);
+    });
+
+    validateForm();
+</script>
 </body>
 </html>
