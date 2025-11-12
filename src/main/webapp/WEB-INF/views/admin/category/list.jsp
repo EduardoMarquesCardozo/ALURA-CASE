@@ -3,27 +3,32 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Lista de Categorias</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="/assets/external-libs/bootstrap/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Category List</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
 </head>
 
+<body>
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>Categorias</h1>
-            <a class="btn btn-info new-button" href="/admin/category/new">Cadastrar nova</a>
+    <div class="card list-card">
+        <div class="list-header">
+            <h1>Categories</h1>
+            <div class="flex-basic">
+                <a class="btn btn-small btn-blue" href="/dashboard">Dashboard</a>
+                <a class="btn btn-small" href="/admin/category/new">New Category</a>
+            </div>
         </div>
-        <table class="panel-body table table-hover">
+
+        <table class="list-table">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Código</th>
-                <th>Cor</th>
-                <th>Ordem</th>
-                <th></th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Color</th>
+                <th>Order</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -31,12 +36,19 @@
                 <tr>
                     <td>${category.name()}</td>
                     <td>${category.code()}</td>
-                    <td>${category.color()}</td>
+                    <td>
+                        <span class="color-dot" style="background-color: ${category.color()}"></span>
+                            ${category.color()}
+                    </td>
                     <td>${category.order()}</td>
-                    <td><a class="btn btn-primary" href="/admin/category/edit/${category.id()}">Editar</a></td>
+                    <td>
+                        <a class="btn btn-small btn-edit" href="/admin/category/edit/${category.id()}">Edit</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
 </div>
+</body>
+</html>

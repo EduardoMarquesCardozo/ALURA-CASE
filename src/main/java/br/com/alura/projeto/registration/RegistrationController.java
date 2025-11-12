@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class RegistrationController {
     @GetMapping("/admin/registrations")
     public String list(Model model) {
         model.addAttribute("registrations", registrationService.findAll());
-        return "admin/registration/list";
+        return "/admin/registration/list";
     }
 
     @GetMapping("admin/registration/new")
