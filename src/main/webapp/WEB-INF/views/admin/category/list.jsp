@@ -42,7 +42,7 @@
                     </td>
                     <td>${category.order()}</td>
                     <td>
-                        <a class="btn btn-small btn-edit" href="/admin/category/edit/${category.id()}">Edit</a>
+                        <a class="btn btn-small btn-edit" href="/admin/category/${category.code()}/edit">Edit</a>
                     </td>
                 </tr>
             </c:forEach>
