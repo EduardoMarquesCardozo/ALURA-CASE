@@ -15,10 +15,33 @@
 <body>
 <div class="container">
     <div class="card form-card">
-        <h1>New Category</h1>
-        <p class="subtitle">Fill out the fields below to create a new category.</p>
+        <h1>
+            <c:choose>
+                <c:when test="${isEdit}">
+                    Edit Category
+                </c:when>
+                <c:otherwise>
+                    New Category
+                </c:otherwise>
+            </c:choose>
+        </h1>
+        <p class="subtitle">
+            <c:choose>
+                <c:when test="${isEdit}">
+                    Update the fields below to edit the category.
+                </c:when>
+                <c:otherwise>
+                    Fill out the fields below to create a new category.
+                </c:otherwise>
+            </c:choose>
+        </p>
 
-        <form:form modelAttribute="newCategoryForm" action="/admin/category/new" method="post" cssClass="form">
+        <c:if test="${not empty error}">
+            <div class="alert alert-error">${error}</div>
+        </c:if>
+
+        <c:set var="formAction" value="${isEdit ? '/admin/category/'.concat(categoryCode).concat('/edit') : '/admin/category/new'}" />
+        <form:form modelAttribute="newCategoryForm" action="${formAction}" method="post" cssClass="form">
             <div class="form-group">
                 <label for="newCategory-name">Name:</label>
                 <form:input path="name" id="newCategory-name" cssClass="input" required="required" />
