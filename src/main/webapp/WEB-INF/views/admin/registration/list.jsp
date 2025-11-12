@@ -15,6 +15,7 @@
                 <div class="panel-heading">
                     <h1>Registration</h1>
                     <a class="btn btn-info new-button" href="/admin/registration/new">New registration</a>
+                    <a class="btn btn-info new-button" href="/dashboard">Dashboard</a>
                 </div>
                 <table class="panel-body table table-hover">
                     <thead>
