@@ -28,6 +28,8 @@ public class Course {
 
     private Long instructorId;
 
+    private LocalDateTime deactivationDate;
+
     public Course() {}
 
     public Long getId() {
@@ -73,4 +75,8 @@ public class Course {
     public String getStatus() { return status; }
 
     public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getDeactivationDate() { return deactivationDate; }
+
+    public void setDeactivationDate(LocalDateTime deactivationDate) { this.deactivationDate = deactivationDate; }
 }
