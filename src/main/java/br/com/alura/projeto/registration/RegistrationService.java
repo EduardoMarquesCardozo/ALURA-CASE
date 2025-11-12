@@ -46,4 +46,7 @@ public class RegistrationService {
     public List<Registration> findAll() {
         return registrationRepository.findAll();
     }
+    public List<RegistrationReportItem> getCourseAccessReport() {
+        return registrationRepository.generateCourseAccessReport();
+    }
 }

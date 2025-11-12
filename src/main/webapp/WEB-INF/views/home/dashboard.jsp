@@ -38,7 +38,7 @@
                     <div class="d-grid gap-3 col-6 mx-auto">
                         <a href="/admin/courses" class="btn btn-primary btn-lg">Courses</a>
                         <a href="/admin/categories" class="btn btn-success btn-lg">Categories</a>
-                        <a href="/admin/users" class="btn btn-warning btn-lg">Users</a>
+                        <a href="/admin/reports" class="btn btn-warning btn-lg">Reports</a>
                         <a href="/admin/registrations" class="btn btn-info btn-lg">Registrations</a>
                     </div>
                 </div>
