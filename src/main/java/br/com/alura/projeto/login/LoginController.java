@@ -35,13 +35,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String email, @RequestParam String password) {
-
-            User user = userService.loginUser(email, password);
-            ModelAndView mv = new ModelAndView("redirect:/dashboard");
-            mv.addObject("user", user);
+    public ModelAndView login(@RequestParam String email, @RequestParam String password, Model model) {
+        User user = userService.loginUser(email, password);
+        if (user == null) {
+            ModelAndView mv = new ModelAndView("redirect:/");
+            mv.addObject("categoryCourses", courseService.findAllCoursesGroupedByCategory());
             return mv;
-            //TRATAMENTO DE ERRO NÃO ESQUECER
+        }
 
+        ModelAndView mv = new ModelAndView("redirect:/dashboard");
+        mv.addObject("user", user);
+        return mv;
     }
 }
