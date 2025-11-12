@@ -7,41 +7,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cadastrar nova Categoria</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="/assets/external-libs/bootstrap/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>New Category</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
 </head>
 
+<body>
 <div class="container">
-    <section class="panel panel-primary vertical-space">
-        <div class="panel-heading">
-            <h1>Cadastrar nova categoria</h1>
-        </div>
+    <div class="card form-card">
+        <h1>New Category</h1>
+        <p class="subtitle">Fill out the fields below to create a new category.</p>
 
-        <form:form modelAttribute="newCategoryForm" cssClass="form-horizontal panel-body" action="/admin/category/new" method="post">
-            <div class="row form-group">
-                <div class="col-md-9">
-                    <label for="newCategory-name">Nome:</label>
-                    <form:input path="name" id="newCategory-name" cssClass="form-control" required="required"/>
-                </div>
-
-                <div class="col-md-9">
-                    <label for="newCategory-code">Código:</label>
-                    <form:input path="code" id="newCategory-code" cssClass="form-control" required="required"/>
-                </div>
-
-                <div class="col-md-9">
-                    <label for="newCategory-color">Cor:</label>
-                    <form:input path="color" id="newCategory-color" cssClass="form-control" required="required"/>
-                </div>
-
-                <div class="col-md-9">
-                    <label for="newCategory-order">Ordem:</label>
-                    <form:input path="order" type="number" min="1" id="newCategory-order" cssClass="form-control" required="required"/>
-                </div>
+        <form:form modelAttribute="newCategoryForm" action="/admin/category/new" method="post" cssClass="form">
+            <div class="form-group">
+                <label for="newCategory-name">Name:</label>
+                <form:input path="name" id="newCategory-name" cssClass="input" required="required" />
             </div>
 
-            <input class="btn btn-success submit" type="submit" value="Salvar"/>
+            <div class="form-group">
+                <label for="newCategory-code">Code:</label>
+                <form:input path="code" id="newCategory-code" cssClass="input" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label for="newCategory-color">Color:</label>
+                <form:input path="color" id="newCategory-color" cssClass="input" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label for="newCategory-order">Order:</label>
+                <form:input path="order" id="newCategory-order" type="number" min="1" cssClass="input" required="required" />
+            </div>
+
+            <div class="buttons">
+                <input type="submit" value="Save" class="btn" />
+                <a href="/admin/categories" class="btn btn-small">Back</a>
+            </div>
         </form:form>
-    </section>
+    </div>
 </div>
+</body>
+</html>
