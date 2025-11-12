@@ -9,6 +9,10 @@ body {
     min-height: 100vh;
     padding: 2rem;
 }
+.flex-basic{
+    display: flex;
+    gap: 1rem;
+}
 
 .container {
     display: flex;
@@ -125,6 +129,26 @@ body {
     background-color: #64d9a7;
     transform: scale(1.03);
 }
+
+.btn-danger{
+    background-color: #ff6666;
+}
+
+.btn-danger:hover{
+    background-color: #7e3412;
+    transform: scale(1.03);
+}
+
+.btn-blue{
+    background-color: #44d9ec;
+}
+.btn-blue:hover{
+    background-color: #05cce6;
+    transform: scale(1.03);
+}
+
+
+
 
 /*FORMS*/
 .form-card {

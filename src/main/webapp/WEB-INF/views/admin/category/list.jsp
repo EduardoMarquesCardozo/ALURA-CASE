@@ -15,7 +15,10 @@
     <div class="card list-card">
         <div class="list-header">
             <h1>Categories</h1>
-            <a class="btn btn-small" href="/admin/category/new">New Category</a>
+            <div class="flex-basic">
+                <a class="btn btn-small btn-blue" href="/dashboard">Dashboard</a>
+                <a class="btn btn-small" href="/admin/category/new">New Category</a>
+            </div>
         </div>
 
         <table class="list-table">
